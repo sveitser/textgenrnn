@@ -3,7 +3,6 @@ from keras.models import Model, load_model
 from keras.preprocessing import sequence
 from keras.preprocessing.text import Tokenizer, text_to_word_sequence
 from keras import backend as K
-from sklearn.preprocessing import LabelBinarizer
 import numpy as np
 import json
 import h5py
