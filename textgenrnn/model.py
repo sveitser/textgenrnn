@@ -36,7 +36,7 @@ def textgenrnn_model(num_classes, cfg, context_size=None,
         model = Model(inputs=[input], outputs=[output])
         if weights_path is not None:
             model.load_weights(weights_path, by_name=True)
-        model.compile(loss='categorical_crossentropy', optimizer=optimizer)
+        model.compile(loss='sparse_categorical_crossentropy', optimizer=optimizer)
 
     else:
         context_input = Input(

@@ -144,6 +144,7 @@ class textgenrnn:
         if self.config['single_text']:
             indices_list = indices_list[self.config['max_length']:-2, :]
 
+        np.random.seed(1337)
         indices_mask = np.random.rand(indices_list.shape[0]) < train_size
 
         if multi_gpu:
@@ -155,7 +156,8 @@ class textgenrnn:
         if train_size < 1.0 and validation:
             indices_list_val = indices_list[~indices_mask, :]
             gen_val = generate_sequences_from_texts(
-                texts, indices_list_val, self, context_labels, batch_size)
+                texts, indices_list_val, self, context_labels, batch_size,
+                dataset='val')
             val_steps = max(
                 int(np.floor(indices_list_val.shape[0] / batch_size)), 1)
 
@@ -170,7 +172,8 @@ class textgenrnn:
         steps_per_epoch = max(int(np.floor(num_tokens / batch_size)), 1)
 
         gen = generate_sequences_from_texts(
-            texts, indices_list, self, context_labels, batch_size)
+            texts, indices_list, self, context_labels, batch_size,
+            dataset='train')
 
         base_lr = 4e-3
 
